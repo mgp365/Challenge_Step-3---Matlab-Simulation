@@ -1,98 +1,98 @@
-close
-p = (1+sqrt(5))/2; %porporción aurea pi
+% Juan Pablo García Villarreal			A01286499
+% César Tadeo Bernal Sauceda			A00481810		
+% Mariana Guerrero Pérez			    A00840918
+% Camila Adriana Portanda Polo 	   	    A00842213
+% Marcelo Treviño Velazquez 			A01286389
+
+% Mariana, Juan, Camila, Marcelo - Implementation of the mentioned code in the final figure within the dodecahedral
+
+close % Mariana - Dodecahedral points to graphic based in area proportion
+p = (1+sqrt(5))/2; %proportion area pi for the points
 q = 1/p; %1/pi
 e = 2;
 grid on
-    A = [p; 0; q] * e;
-    B = [-p; 0; q] * e;
-    C = [-p; 0; -q] * e;
-    D = [p; 0; -q] * e;
-
-    E = [q; p; 0] * e;
-    F = [q; -p; 0] * e;
-    G = [-q; -p; 0] * e;
-    H = [-q; p; 0] * e;
-
-    I = [0; q; p] * e;
-    J = [0; q; -p] * e;
-    K = [0; -q; -p] * e;
-    L = [0; -q; p] * e;
-
-    M = [1; 1; 1] * e;
-    N = [1; -1; 1] * e;
-    O = [-1; -1; 1] * e;
-    P = [-1; 1; 1] * e;
-
-    Q = [-1; 1; -1] * e;
-    R = [1; 1; -1] * e;
-    S = [1; -1; -1] * e;
-    T = [-1; -1; -1] * e;
-
-%sphere points
-X = 1.5 * [0, 0.5, 0.75, 0.9, 0.98, 0.98, 0.9, 0.75, 0.5, 0]; 
+   A = [p; 0; q] * e; %points of the dodecahedron
+   B = [-p; 0; q] * e;
+   C = [-p; 0; -q] * e;
+   D = [p; 0; -q] * e;
+   E = [q; p; 0] * e;
+   F = [q; -p; 0] * e;
+   G = [-q; -p; 0] * e;
+   H = [-q; p; 0] * e;
+   I = [0; q; p] * e;
+   J = [0; q; -p] * e;
+   K = [0; -q; -p] * e;
+   L = [0; -q; p] * e;
+   M = [1; 1; 1] * e;
+   N = [1; -1; 1] * e;
+   O = [-1; -1; 1] * e;
+   P = [-1; 1; 1] * e;
+   Q = [-1; 1; -1] * e;
+   R = [1; 1; -1] * e;
+   S = [1; -1; -1] * e;
+   T = [-1; -1; -1] * e;
+%sphere points for interpolation
+%Marcelo & Mariana - we both helped to obtain the points and adapt them
+X = 1.5 * [0, 0.5, 0.75, 0.9, 0.98, 0.98, 0.9, 0.75, 0.5, 0];
 Y = 1.5 * [1, 0.87, 0.7, 0.45, 0.15, -0.15, -0.45, -0.7, -0.87, -1];
-
-%Rotate in the Z axis 
+% Mariana - Logic and code to rotate in the Z axis
 theta = linspace(0, 2*pi, 12); %12 cuts for the figure in the solid of revolution
 [X_grid, Theta_grid] = meshgrid(X, theta);
 [Y_grid, ~] = meshgrid(Y, theta);
-
-%From polar to cartesian coordinates
+% Camila - Converting from polar to cartesian coordinates
 X_rot = X_grid .* cos(Theta_grid);
 Y_rot = X_grid .* sin(Theta_grid);
 Z_rot = Y_grid; %To mantain its form
-
-figure;
-surf(X_rot, Y_rot, Z_rot);
+figure; % Cesar - plot of the sphere and control of the axis
+surf(X_rot, Y_rot, Z_rot); %Juan - control of the size of the sphere
 colormap(jet);
 alpha(0.5);
-hold on
-
+hold on % Mariana - Logic and code for the interconnection between points for the dodecahedron (matrix of points and faces of the dodecahedron)
 puntos = [A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T]';
-
-%cara 1
+%Face 1 made with lines between the points
 line([A(1,1) M(1,1)], [A(2,1) M(2,1)], [A(3,1) M(3,1)], 'Color', 'c', 'linewidth', 20)
 line([M(1,1) I(1,1)], [M(2,1) I(2,1)], [M(3,1) I(3,1)], 'Color', 'c', 'linewidth', 20)
 line([I(1,1) L(1,1)], [I(2,1) L(2,1)], [I(3,1) L(3,1)], 'Color', 'c', 'linewidth', 20)
 line([L(1,1) N(1,1)], [L(2,1) N(2,1)], [L(3,1) N(3,1)], 'Color', 'c', 'linewidth', 20)
 line([N(1,1) A(1,1)], [N(2,1) A(2,1)], [N(3,1) A(3,1)], 'Color', 'c', 'linewidth', 20)
-%cara 2
+%Face 2
 line([M(1,1) E(1,1)], [M(2,1) E(2,1)], [M(3,1) E(3,1)], 'Color', 'c', 'linewidth', 20)
 line([E(1,1) R(1,1)], [E(2,1) R(2,1)], [E(3,1) R(3,1)], 'Color', 'c', 'linewidth', 20)
 line([R(1,1) D(1,1)], [R(2,1) D(2,1)], [R(3,1) D(3,1)], 'Color', 'c', 'linewidth', 20)
 line([D(1,1) A(1,1)], [D(2,1) A(2,1)], [D(3,1) A(3,1)], 'Color', 'c', 'linewidth', 20)
-%cara 3
+%Face 3
 line([N(1,1) F(1,1)], [N(2,1) F(2,1)], [N(3,1) F(3,1)], 'Color', 'c', 'linewidth', 20)
 line([F(1,1) S(1,1)], [F(2,1) S(2,1)], [F(3,1) S(3,1)], 'Color', 'c', 'linewidth', 20)
 line([S(1,1) D(1,1)], [S(2,1) D(2,1)], [S(3,1) D(3,1)], 'Color', 'c', 'linewidth', 20)
-%cara 4
+%Face 4
 line([E(1,1) H(1,1)], [E(2,1) H(2,1)], [E(3,1) H(3,1)], 'Color', 'c', 'linewidth', 20)
 line([H(1,1) P(1,1)], [H(2,1) P(2,1)], [H(3,1) P(3,1)], 'Color', 'c', 'linewidth', 20)
 line([P(1,1) I(1,1)], [P(2,1) I(2,1)], [P(3,1) I(3,1)], 'Color', 'c', 'linewidth', 20)
-%cara 5
+%Face 5
 line([S(1,1) K(1,1)], [S(2,1) K(2,1)], [S(3,1) K(3,1)], 'Color', 'c', 'linewidth', 20)
 line([K(1,1) J(1,1)], [K(2,1) J(2,1)], [K(3,1) J(3,1)], 'Color', 'c', 'linewidth', 20)
 line([J(1,1) R(1,1)], [J(2,1) R(2,1)], [J(3,1) R(3,1)], 'Color', 'c', 'linewidth', 20)
-%cara 6
+%Face 6
 line([J(1,1) Q(1,1)], [J(2,1) Q(2,1)], [J(3,1) Q(3,1)], 'Color', 'c', 'linewidth', 20)
 line([H(1,1) Q(1,1)], [H(2,1) Q(2,1)], [H(3,1) Q(3,1)], 'Color', 'c', 'linewidth', 20)
-%cara 7
+%Face 7
 line([L(1,1) O(1,1)], [L(2,1) O(2,1)], [L(3,1) O(3,1)], 'Color', 'c', 'linewidth', 20)
 line([O(1,1) B(1,1)], [O(2,1) B(2,1)], [O(3,1) B(3,1)], 'Color', 'c', 'linewidth', 20)
 line([P(1,1) B(1,1)], [P(2,1) B(2,1)], [P(3,1) B(3,1)], 'Color', 'c', 'linewidth', 20)
-%cara 8
+%Face 8
 line([Q(1,1) C(1,1)], [Q(2,1) C(2,1)], [Q(3,1) C(3,1)], 'Color', 'c', 'linewidth', 20)
 line([C(1,1) B(1,1)], [C(2,1) B(2,1)], [C(3,1) B(3,1)], 'Color', 'c', 'linewidth', 20)
-%cara 9
+%Face 9
 line([T(1,1) C(1,1)], [T(2,1) C(2,1)], [T(3,1) C(3,1)], 'Color', 'c', 'linewidth', 20)
 line([T(1,1) K(1,1)], [T(2,1) K(2,1)], [T(3,1) K(3,1)], 'Color', 'c', 'linewidth', 20)
-%cara 10
+%Face 10
 line([F(1,1) G(1,1)], [F(2,1) G(2,1)], [F(3,1) G(3,1)], 'Color', 'c', 'linewidth', 20)
 line([O(1,1) G(1,1)], [O(2,1) G(2,1)], [O(3,1) G(3,1)], 'Color', 'c', 'linewidth', 20)
-%cara 11 y 12
+%Face 11 and 12
 line([T(1,1) G(1,1)], [T(2,1) G(2,1)], [T(3,1) G(3,1)], 'Color', 'c', 'linewidth', 20)
 
-%scatter hace puntos tridimensionales! :D
+% Mariana - Scatter to make three dimensional points
+% Camila - Helped with the view of the axis. 
 scatter3(puntos(:,1), puntos(:,2), puntos(:,3), 1400, 'filled', 'MarkerFaceAlpha', 1);
 axis equal;
 hold on
